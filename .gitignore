@@ -3,9 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
-*.so
-
 # Distribution / packaging
 .Python
 build/
@@ -102,3 +99,11 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# terraform cruft and secrets
+terraform/.terraform/
+terraform/private.tf
+terraform/notes.txt
+terraform/host.ps1
+terraform/signal.zip
+*.tfstate
