@@ -4,9 +4,11 @@ def lambda_handler(event, context):
     print('event')
     print(json.dumps(event))
     print('context')
-    print(json.dumps(context))
+    print(context)
     return {
-        'message': 'ok'
+        "isBase64Encoded": False,
+        "statusCode": 200,
+        "body": "Coolio!"
     }
 
 if __name__ == "__main__":

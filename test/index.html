@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <script src="./simplewebsocket.min.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        textarea {
+            width: 50%;
+            height: 35%;
+        }
+    </style>
+</head>
+<script>
+    var socket;
+    const decoder = new TextDecoder('utf-8');
+    function addMessage(message) {
+        console.log(message);
+        const messages = document.getElementById('messages');
+        const newMessage = document.createElement('p');
+        newMessage.textContent = message;
+        messages.appendChild(newMessage);
+    }
+    
+    function sendMessage() {
+        const input = document.getElementById('messageToSend').textContent;
+        socket.send(message);
+    }
+    
+    window.onload = function(){
+        addMessage('init...');
+        socket = new SimpleWebsocket('wss://d29w5h2hj900vg.cloudfront.net')
+        socket.on('connect', () => {
+            addMessage('Connected!');
+            socket.send('test');
+        });
+
+        socket.on('data', (data) => {
+            addMessage(JSON.stringify(data));
+            const decoded = decoder.decode(data);
+            addMessage('decoded: ' + decoded);
+        });
+    }
+</script>
+<body>
+    <div id="input">
+        <button onclick="sendMessage()" id="sendMessage">Send</button>
+        <textarea id="messageToSend"></textarea>
+    </div>
+    <div id="messages"></div>
+    
+</body>
+
+</html>
