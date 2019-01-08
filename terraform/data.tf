@@ -8,9 +8,10 @@ resource "aws_dynamodb_table" "signalws-hotel" {
   write_capacity = 20
   hash_key       = "roomName"
 
-  attribute = [{
-    name = "roomName"
-    type = "S"
-  }
+  attribute = [
+    {
+      name = "roomName"
+      type = "S"
+    }
   ]
 }
