@@ -105,5 +105,5 @@ terraform/.terraform/
 terraform/private.tf
 terraform/notes.txt
 terraform/host.ps1
-terraform/signal.zip
+terraform/create_room.zip
 *.tfstate
