@@ -24,6 +24,10 @@
         newMessage.textContent = message;
         messages.appendChild(newMessage);
     }
+
+    function disconnect() {
+        socket.destroy();
+    }
     
     function sendMessage() {
         const input = document.getElementById('messageToSend').textContent;
@@ -43,11 +47,16 @@
             const decoded = decoder.decode(data);
             addMessage('decoded: ' + decoded);
         });
+
+        socket.on('close', () => {
+            addMessage('Disconnected!');
+        })
     }
 </script>
 <body>
     <div id="input">
         <button onclick="sendMessage()" id="sendMessage">Send</button>
+        <button onclick="disconnect()">Disconnect</button>
         <textarea id="messageToSend"></textarea>
     </div>
     <div id="messages"></div>
