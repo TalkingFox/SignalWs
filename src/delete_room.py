@@ -28,6 +28,7 @@ def delete_room(room):
     table = dynamo.Table(Config.ROOM_TABLE)
     table.delete_item(
         Key={
-            'roomName': room
+            'roomName': room['roomName']
         }
     )
+    
