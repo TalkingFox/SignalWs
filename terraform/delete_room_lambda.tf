@@ -79,7 +79,7 @@ resource "aws_iam_role_policy_attachment" "delete_room_lambda_dynamo_policy_atta
 
 resource "aws_iam_role" "iam_for_delete_room_lambda" {
   name               = "delete_room_iam"
-  assume_role_policy = "${data.aws_iam_policy_document.create_room_lambda.json}"
+  assume_role_policy = "${data.aws_iam_policy_document.delete_room_lambda.json}"
 }
 
 resource "aws_lambda_function" "delete_room" {
