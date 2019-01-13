@@ -5,10 +5,11 @@ from room_response import RoomError
 
 def lambda_handler(event, context):
     connection_id = event['requestContext']['connectionId']
-    request = JoinRoomRequest(**event['body'])
+    body = json.loads(event['body'])
+    request = JoinRoomRequest(**body)
     host = get_host(request.room)
     if host is None:
-        return RoomError('Could not find room')
+        return RoomError('Could not find room').__dict__
     send_offer(host, request.offer)
     
 def get_host(room):
@@ -19,7 +20,7 @@ def get_host(room):
             'roomName': room
         }
     )
-    if 'item' not in response:
+    if 'Item' not in response:
         return None    
     found_room = response['Item']
     return found_room
