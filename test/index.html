@@ -33,13 +33,20 @@
         const input = document.getElementById('messageToSend').textContent;
         socket.send(message);
     }
+
+    function createRoom() {
+        const request = {
+            action: 'create_room'
+        }
+        socket.send(JSON.stringify(request))
+        addMessage('sent request!')
+    }
     
     window.onload = function(){
         addMessage('init...');
         socket = new SimpleWebsocket('wss://d29w5h2hj900vg.cloudfront.net')
         socket.on('connect', () => {
             addMessage('Connected!');
-            socket.send('test');
         });
 
         socket.on('data', (data) => {
@@ -56,6 +63,7 @@
 <body>
     <div id="input">
         <button onclick="sendMessage()" id="sendMessage">Send</button>
+        <button onclick="createRoom()">Create Room</button>
         <button onclick="disconnect()">Disconnect</button>
         <textarea id="messageToSend"></textarea>
     </div>

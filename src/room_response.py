@@ -1,6 +1,8 @@
+import json
+
 class BasicResponse():
     def __init__(self, body):
-        self.body = body
+        self.body = json.dumps(body)
         self.isBase64Encoded = False
         self.statusCode = 200
 

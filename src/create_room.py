@@ -17,7 +17,7 @@ def lambda_handler(event, context):
             'host': host_id
         }
     )
-    return RoomCreated(room)
+    return RoomCreated(room).__dict__
 
 def get_words():
     with open('words.txt') as f:
