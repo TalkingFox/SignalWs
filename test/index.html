@@ -29,17 +29,21 @@
         socket.destroy();
     }
     
-    function sendMessage() {
-        const input = document.getElementById('messageToSend').textContent;
-        socket.send(message);
-    }
-
     function createRoom() {
         const request = {
             action: 'create_room'
         }
         socket.send(JSON.stringify(request))
         addMessage('sent request!')
+    }
+
+    function joinRoom() {
+        const room = document.getElementById('roomToJoin').value;
+        const request = {
+            action: 'join_room',
+            room: room
+        };
+        socket.send(JSON.stringify(request));
     }
     
     window.onload = function(){
@@ -62,10 +66,14 @@
 </script>
 <body>
     <div id="input">
-        <button onclick="sendMessage()" id="sendMessage">Send</button>
         <button onclick="createRoom()">Create Room</button>
+        <br/>
+        <span>
+            <button onclick="joinRoom()">JoinRoom</button>
+            <input id="roomToJoin" type="text" /> 
+        </span>
+        <br/>
         <button onclick="disconnect()">Disconnect</button>
-        <textarea id="messageToSend"></textarea>
     </div>
     <div id="messages"></div>
     
