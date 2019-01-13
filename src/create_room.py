@@ -3,6 +3,7 @@ import json
 import boto3
 from config import Config
 from datetime import datetime
+from room_response import RoomCreated
 
 def lambda_handler(event, context):
     host_id = event["requestContext"]["connectionId"]
@@ -16,11 +17,7 @@ def lambda_handler(event, context):
             'host': host_id
         }
     )
-    return {
-        "isBase64Encoded": False,
-        "statusCode": 200,
-        "body": room
-    }
+    return RoomCreated(room)
 
 def get_words():
     with open('words.txt') as f:
