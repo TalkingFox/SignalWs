@@ -46,6 +46,3 @@ def get_closed_rooms(table):
         )
         data.extend(response['Items'])
     return list(map(lambda x: x['roomName'], data))
-
-if __name__ == "__main__":
-    lambda_handler({'event':'pooped'},{'context': 'butt'})
