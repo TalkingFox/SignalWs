@@ -107,3 +107,4 @@ terraform/notes.txt
 terraform/host.ps1
 terraform/create_room.zip
 *.tfstate
+terraform/delete_room.zip
