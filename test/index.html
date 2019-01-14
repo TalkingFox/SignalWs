@@ -41,7 +41,8 @@
         const room = document.getElementById('roomToJoin').value;
         const request = {
             action: 'join_room',
-            room: room
+            room: room,
+            offer: 'not_a_real_offer'
         };
         socket.send(JSON.stringify(request));
     }
