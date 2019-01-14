@@ -109,3 +109,7 @@ terraform/host.ps1
 terraform/create_room.zip
 terraform/delete_room.zip
 terraform/join_room.zip
+
+src/output
+src/requirements.txt
+src/dev

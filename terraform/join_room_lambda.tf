@@ -32,6 +32,18 @@ data "aws_iam_policy_document" "join_room_lambda_access_doc" {
 
   statement {
     actions = [
+      "execute-api:ManageConnections",
+    ]
+
+    # presently hard-coded.
+    # will be fixed when terraform gets off their asses
+    resources = [
+      "arn:aws:execute-api:${var.region}:${var.account_id}:9iipciuzhf/*"
+    ]
+  }
+
+  statement {
+    actions = [
       "autoscaling:Describe*",
       "cloudwatch:*",
       "logs:*",
@@ -89,4 +101,5 @@ resource "aws_lambda_function" "join_room" {
   handler          = "join_room.lambda_handler"
   role             = "${aws_iam_role.iam_for_join_room_lambda.arn}"
   source_code_hash = "${base64sha256(file("join_room.zip"))}"
+  timeout = 15
 }

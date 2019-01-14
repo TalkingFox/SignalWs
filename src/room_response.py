@@ -17,4 +17,8 @@ class RoomError(BasicResponse):
 
 class RoomCreated(BasicResponse):
     def __init__(self, room):
-        return super().__init__({'room': room})
+        super().__init__({'room': room})
+
+class RequestAccepted(BasicResponse):
+    def __init__(self):
+        super().__init__({'message': 'Request Accepted'})
