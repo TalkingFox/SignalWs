@@ -21,3 +21,18 @@ class JoinRoomRequestToHost(RoomRequest):
         super()
         self.offer = offer
         self.client = connection_id
+
+class AddToRoomRequest(RoomRequest):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def client(self):
+        return self.client
+    
+    def answer(self):
+        return self.answer
+
+class AddToRoomRequestToClient(RoomRequest):
+    def __init__(self, answer):
+        super()
+        self.answer = answer
