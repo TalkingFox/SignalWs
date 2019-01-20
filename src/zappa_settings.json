@@ -1,5 +1,5 @@
 {
-    "dev": {
+    "join_room": {
         "app_function": "join_room.lambda_handler",
         "aws_region": "us-east-2",
         "profile_name": "default",
@@ -9,6 +9,21 @@
         "exclude": [
             "create_room.py",
             "delete_room.py",
+            "add_to_room.py",
+            "words.txt"
+        ]
+    },
+    "add_to_room": {
+        "app_function": "add_to_room.lambda_handler",
+        "aws_region": "us-east-2",
+        "profile_name": "default",
+        "project_name": "add_to_room",
+        "runtime": "python3.6",
+        "s3_bucket": "zappa-shu47wqjx",
+        "exclude": [
+            "create_room.py",
+            "delete_room.py",
+            "join_room.py",
             "words.txt"
         ]
     }

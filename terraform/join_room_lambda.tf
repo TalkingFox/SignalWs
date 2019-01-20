@@ -34,11 +34,9 @@ data "aws_iam_policy_document" "join_room_lambda_access_doc" {
     actions = [
       "execute-api:ManageConnections",
     ]
-
-    # presently hard-coded.
-    # will be fixed when terraform gets off their asses
+    
     resources = [
-      "arn:aws:execute-api:${var.region}:${var.account_id}:9iipciuzhf/*"
+      "arn:aws:execute-api:${var.region}:${var.account_id}:${var.websocket_api_id}/*"
     ]
   }
 
