@@ -15,3 +15,9 @@ class JoinRoomRequest(RoomRequest):
 
     def offer(self):
         return self.offer
+
+class JoinRoomRequestToHost(RoomRequest):
+    def __init__(self, offer, connection_id):
+        super()
+        self.offer = offer
+        self.client = connection_id
