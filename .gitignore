@@ -113,3 +113,5 @@ terraform/join_room.zip
 src/output
 src/requirements.txt
 src/dev
+terraform/add_to_room.zip
+.vscode/settings.json

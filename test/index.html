@@ -46,6 +46,16 @@
         };
         socket.send(JSON.stringify(request));
     }
+
+    function addToRoom() {
+        const client = document.getElementById('clientId').value
+        const request = {
+            action: 'add_to_room',
+            client: client,
+            answer: 'not_a_real_answer'
+        };
+        socket.send(JSON.stringify(request));
+    }
     
     window.onload = function(){
         addMessage('init...');
@@ -70,8 +80,13 @@
         <button onclick="createRoom()">Create Room</button>
         <br/>
         <span>
-            <button onclick="joinRoom()">JoinRoom</button>
+            <button onclick="joinRoom()">Join Room</button>
             <input id="roomToJoin" type="text" /> 
+        </span>
+        <br/>
+        <span>
+            <button onclick="addToRoom()">Add to Room</button>
+            <input id="clientId" type="text" /> 
         </span>
         <br/>
         <button onclick="disconnect()">Disconnect</button>
