@@ -1,14 +1,15 @@
 class RoomRequest:
-    def __init__(self, **kwargs):
+    def __init__(self, type, **kwargs):
+        self.type = type
         for key, value in kwargs.items():
             setattr(self, key, value)
     
     def action(self):
-        return self.action    
+        return self.action
 
 class JoinRoomRequest(RoomRequest):
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__('join_room', **kwargs)
     
     def room(self):
         return self.room
@@ -18,13 +19,13 @@ class JoinRoomRequest(RoomRequest):
 
 class JoinRoomRequestToHost(RoomRequest):
     def __init__(self, offer, connection_id):
-        super()
+        super().__init__('guest_request')
         self.offer = offer
         self.client = connection_id
 
 class AddToRoomRequest(RoomRequest):
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__('add_to_room', **kwargs)
 
     def client(self):
         return self.client
@@ -34,5 +35,5 @@ class AddToRoomRequest(RoomRequest):
 
 class AddToRoomRequestToClient(RoomRequest):
     def __init__(self, answer):
-        super()
+        super().__init__('room_joined')
         self.answer = answer
