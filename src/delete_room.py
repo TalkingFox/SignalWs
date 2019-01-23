@@ -1,6 +1,7 @@
 import boto3
 from boto3.dynamodb.conditions import Attr
 from config import Config
+from room_response import BasicResponse
 
 
 def lambda_handler(event, context):
@@ -9,6 +10,7 @@ def lambda_handler(event, context):
     if room is None:
         return
     delete_room(room)
+    return BasicResponse(body={})
 
 
 # returns a roomName if the connectionId corresponds to a host
