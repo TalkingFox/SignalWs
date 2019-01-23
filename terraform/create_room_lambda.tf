@@ -26,7 +26,7 @@ data "aws_iam_policy_document" "create_room_lambda_access_doc" {
     ]
 
     resources = [
-      "${aws_dynamodb_table.signalws-hotel.arn}",
+      "${aws_dynamodb_table.signalrooms.arn}",
     ]
   }
 
