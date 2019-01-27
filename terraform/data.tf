@@ -12,15 +12,7 @@ resource "aws_dynamodb_table" "signalrooms" {
     {
       name = "roomName"
       type = "S"
-    },
-    {
-      name = "host"
-      type = "S"
-    },
-    {
-      name = "created"
-      type = "S"
-    },
+    }
   ]
 }
 
