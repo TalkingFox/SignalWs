@@ -7,16 +7,10 @@ from room_response import RoomCreated
 
 def lambda_handler(event, context):
     host_id = event["requestContext"]["connectionId"]
-    dynamodb = boto3.resource('dynamodb', region_name=Config.AWS_REGION)
-    table = dynamodb.Table(Config.ROOM_TABLE)
-    room = get_open_room(table)
-    response = table.put_item(
-        Item={
-            'roomName': room,
-            'created': datetime.now().isoformat(),
-            'host': host_id
-        }
-    )
+    room = get_open_room()
+    create_room(room, host_id)
+    reserve_word(room)
+    register_host(host_id, room)
     return RoomCreated(room).__dict__
 
 def get_words():
@@ -25,7 +19,7 @@ def get_words():
         content = [x.strip() for x in content]
         return content
 
-def get_open_room(table):
+def get_open_room():
     words = get_words()
     closed_rooms = get_closed_rooms()
     available = list(set(words) - set(closed_rooms))
@@ -36,9 +30,43 @@ def get_closed_rooms():
     table = dynamodb.Table(Config.WORDS_TABLE)
     response = table.get_item(
         Key={
-            'state': 'state'
+            'wordsProperty': 'wordsInUse'
         }
     )
     data = response['Item']
-    return data['value']['wordsInUse']
+    return data['propertyValue']
     
+def create_room(room, host):
+    dynamodb = boto3.resource('dynamodb', region_name=Config.AWS_REGION)
+    table = dynamodb.Table(Config.ROOM_TABLE)
+    response = table.put_item(
+        Item={
+            'roomName': room,
+            'created': datetime.now().isoformat(),
+            'host': host
+        }
+    )
+
+def register_host(host, room):
+    dynamodb = boto3.resource('dynamodb', region_name=Config.AWS_REGION)
+    table = dynamodb.Table(Config.HOST_TABLE)
+    table.put_item(
+        Item={
+            'roomName': room,
+            'created': datetime.now().isoformat(),
+            'host': host
+        }
+    )
+
+def reserve_word(word):
+    dynamodb = boto3.resource('dynamodb', region_name=Config.AWS_REGION)
+    table = dynamodb.Table(Config.WORDS_TABLE)
+    table.update_item(
+        Key={
+            'wordsProperty': 'wordsInUse'
+        },
+        UpdateExpression='SET propertyValue = list_append(propertyValue, :i)',
+        ExpressionAttributeValues={
+            ':i': [word]
+        }
+    )

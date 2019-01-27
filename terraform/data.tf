@@ -34,11 +34,11 @@ resource "aws_dynamodb_table" "signalwords" {
   name           = "SignalWords"
   read_capacity  = 20
   write_capacity = 20
-  hash_key       = "field"
+  hash_key       = "wordsProperty"
 
   attribute = [
     {
-      name = "field"
+      name = "wordsProperty"
       type = "S"
     },
   ]
@@ -49,16 +49,12 @@ resource "aws_dynamodb_table_item" "state_init" {
   hash_key   = "${aws_dynamodb_table.signalwords.hash_key}"
 
   item = <<ITEM
-    {
-        "field": {
-            "S": "state"
+    {        
+        "wordsProperty": {
+            "S": "wordsInUse"
         },
-        "value": {
-            "M": {
-                "wordsInUse": {
-                    "L": []
-                }
-            }
+        "propertyValue": {
+            "L": []
         }
     }
     ITEM
