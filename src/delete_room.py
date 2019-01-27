@@ -10,7 +10,7 @@ def lambda_handler(event, context):
     if room is None:
         return
     delete_room(room)
-    return BasicResponse(body={})
+    return BasicResponse(body={}).__dict__
 
 
 # returns a roomName if the connectionId corresponds to a host
