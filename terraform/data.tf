@@ -34,11 +34,7 @@ resource "aws_dynamodb_table" "signalhosts" {
     {
       name = "host"
       type = "S"
-    },
-    {
-      name = "roomName"
-      type = "S"
-    },
+    }
   ]
 }
 
