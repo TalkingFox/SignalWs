@@ -12,6 +12,66 @@ resource "aws_dynamodb_table" "signalrooms" {
     {
       name = "roomName"
       type = "S"
-    }
+    },
+    {
+      name = "host"
+      type = "S"
+    },
+    {
+      name = "created"
+      type = "S"
+    },
   ]
+}
+
+resource "aws_dynamodb_table" "signalhosts" {
+  name           = "SignalHosts"
+  read_capacity  = 20
+  write_capacity = 20
+  hash_key       = "host"
+
+  attribute = [
+    {
+      name = "host"
+      type = "S"
+    },
+    {
+      name = "roomName"
+      type = "S"
+    },
+  ]
+}
+
+resource "aws_dynamodb_table" "signalwords" {
+  name           = "SignalWords"
+  read_capacity  = 20
+  write_capacity = 20
+  hash_key       = "field"
+
+  attribute = [
+    {
+      name = "field"
+      type = "S"
+    },
+  ]
+}
+
+resource "aws_dynamodb_table_item" "state_init" {
+  table_name = "${aws_dynamodb_table.signalwords.name}"
+  hash_key   = "${aws_dynamodb_table.signalwords.hash_key}"
+
+  item = <<ITEM
+    {
+        "field": {
+            "S": "state"
+        },
+        "value": {
+            "M": {
+                "wordsInUse": {
+                    "L": []
+                }
+            }
+        }
+    }
+    ITEM
 }

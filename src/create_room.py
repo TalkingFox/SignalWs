@@ -27,19 +27,18 @@ def get_words():
 
 def get_open_room(table):
     words = get_words()
-    closed_rooms = get_closed_rooms(table)
+    closed_rooms = get_closed_rooms()
     available = list(set(words) - set(closed_rooms))
     return random.choice(available)
 
-def get_closed_rooms(table):
-    response = table.scan(
-        ProjectionExpression="roomName"
+def get_closed_rooms():
+    dynamodb = boto3.resource('dynamodb', region_name=Config.AWS_REGION)
+    table = dynamodb.Table(Config.WORDS_TABLE)
+    response = table.get_item(
+        Key={
+            'state': 'state'
+        }
     )
-    data = response['Items']
-    while 'LastEvaluatedKey' in response:
-        response = table.scan(
-            ExclusiveStartKey=response['LastEvaluatedKey'],
-            ProjectionExpression="roomName"
-        )
-        data.extend(response['Items'])
-    return list(map(lambda x: x['roomName'], data))
+    data = response['Item']
+    return data['value']['wordsInUse']
+    
