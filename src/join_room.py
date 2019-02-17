@@ -19,6 +19,7 @@ def lambda_handler(event, context):
         host=host,
         offer=request.offer,
         connection_id=connection_id)
+    response = RequestAccepted()
     return RequestAccepted().__dict__
 
 def get_host(room):
