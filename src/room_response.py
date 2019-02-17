@@ -16,8 +16,8 @@ class RoomError(BasicResponse):
         self.statusCode = 500
 
 class RoomCreated(BasicResponse):
-    def __init__(self, room):
-        super().__init__({'room': room, 'type': 'room_created'})
+    def __init__(self, room, host_id):
+        super().__init__({'room': room, 'host_id': host_id, 'type': 'room_created'})
 
 class RequestAccepted(BasicResponse):
     def __init__(self):
