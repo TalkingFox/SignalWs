@@ -34,7 +34,7 @@ def get_closed_rooms():
         }
     )
     data = response['Item']
-    return data['propertyValue']
+    return list(data['propertyValue'].keys())
     
 def create_room(room, host):
     dynamodb = boto3.resource('dynamodb', region_name=Config.AWS_REGION)
@@ -65,8 +65,11 @@ def reserve_word(word):
         Key={
             'wordsProperty': 'wordsInUse'
         },
-        UpdateExpression='SET propertyValue = list_append(propertyValue, :i)',
+        UpdateExpression='SET propertyValue.#i = :i',
         ExpressionAttributeValues={
-            ':i': [word]
+            ':i': word,
+        },
+        ExpressionAttributeNames={
+            '#i': word
         }
     )
