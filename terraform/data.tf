@@ -4,8 +4,8 @@ provider "aws" {
 
 resource "aws_dynamodb_table" "signalrooms" {
   name           = "SignalRooms"
-  read_capacity  = 20
-  write_capacity = 20
+  read_capacity  = 1
+  write_capacity = 1
   hash_key       = "roomName"
 
   attribute = [
@@ -18,8 +18,8 @@ resource "aws_dynamodb_table" "signalrooms" {
 
 resource "aws_dynamodb_table" "signalhosts" {
   name           = "SignalHosts"
-  read_capacity  = 20
-  write_capacity = 20
+  read_capacity  = 1
+  write_capacity = 1
   hash_key       = "host"
 
   attribute = [
@@ -32,8 +32,8 @@ resource "aws_dynamodb_table" "signalhosts" {
 
 resource "aws_dynamodb_table" "signalwords" {
   name           = "SignalWords"
-  read_capacity  = 20
-  write_capacity = 20
+  read_capacity  = 1
+  write_capacity = 1
   hash_key       = "wordsProperty"
 
   attribute = [
@@ -54,7 +54,7 @@ resource "aws_dynamodb_table_item" "state_init" {
             "S": "wordsInUse"
         },
         "propertyValue": {
-            "L": []
+            "M": {}
         }
     }
     ITEM
