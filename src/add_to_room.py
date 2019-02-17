@@ -10,7 +10,8 @@ def lambda_handler(event, context):
     body = json.loads(event['body'])
     request = AddToRoomRequest(**body)
     send_offer(event['requestContext'], request)
-    return RequestAccepted().__dict__
+    response = RequestAccepted()
+    return response.__dict__
 
 def send_offer(request_context, request):
     endpoint = 'https://'+ request_context['domainName'] + '/' + request_context['stage']
