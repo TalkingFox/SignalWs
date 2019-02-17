@@ -20,13 +20,13 @@ data "aws_iam_policy_document" "delete_room_lambda_access_doc" {
       "dynamodb:GetItem",
       "dynamodb:GetRecords",
       "dynamodb:PutItem",
-      "dynamodb:Query",
-      "dynamodb:Scan",
       "dynamodb:UpdateItem",
     ]
 
     resources = [
       "${aws_dynamodb_table.signalrooms.arn}",
+      "${aws_dynamodb_table.signalhosts.arn}",
+      "${aws_dynamodb_table.signalwords.arn}"
     ]
   }
 
